@@ -216,3 +216,22 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Raw data - never commit personal data
+data/raw/*
+*.csv
+*.json
+
+# Secrets
+.env
+api_keys.py
+
+# Python
+__pycache__/
+*.pyc
+
+# Mac
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
