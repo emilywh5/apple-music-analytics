@@ -34,3 +34,65 @@ from tracks
 where release_year is not null
 group by decade
 order by decade
+
+-- top 10 most danceable songs
+select 
+	t.title as track, 
+	a."name" as artist,
+	f.danceability 
+from tracks t
+join audio_features f on t.track_id = f.track_id
+join artists a on t.artist_id = a.artist_id 
+order by f.danceability desc
+limit 10
+
+-- top 10 least energetic songs
+select 
+	t.title as track, 
+	a."name" as artist,
+	f.energy
+from tracks t
+join audio_features f on t.track_id = f.track_id 
+join artists a on t.artist_id = a.artist_id 
+order by f.energy
+limit 10
+
+-- top 10 songs by tempo
+select 
+	t.title as track, 
+	a."name" as artist,
+	f.tempo 
+from tracks t
+join audio_features f on t.track_id = f.track_id
+join artists a on t.artist_id = a.artist_id 
+order by f.tempo desc
+limit 10
+
+-- top 10 songs by valence
+select 
+	t.title as track, 
+	a."name" as artist,
+	f.valence 
+from tracks t
+join audio_features f on t.track_id = f.track_id
+join artists a on t.artist_id = a.artist_id 
+order by f.valence desc
+limit 10
+
+-- top 10 most acoustic songs
+select 
+	t.title as track, 
+	a."name" as artist,
+	f.acousticness
+from tracks t
+join audio_features f on t.track_id = f.track_id
+join artists a on t.artist_id = a.artist_id 
+order by f.acousticness desc
+limit 10
+
+-- top 10 songs by speech
+select t.title as track, f.speechiness 
+from tracks t
+join audio_features f on t.track_id = f.track_id
+order by f.speechiness desc
+limit 10
