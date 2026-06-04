@@ -104,3 +104,18 @@ from artists a
 join tracks t on a.artist_id = t.artist_id 
 join plays p on t.track_id = p.track_id 
 group by a.name
+
+-- listening per month
+with month as (
+	select
+		sum(p.play_count) as plays,
+		date_trunc('month', p.played_at) as month
+	from plays p
+	group by month
+)
+select 
+	plays,
+    to_char(month, 'Month') AS month_name,
+    to_char(month, 'YYYY-MM') AS year_month
+from month
+order by year_month, month_name
