@@ -111,7 +111,7 @@ HAVING COUNT(*) > 30;
 
 ## Dashboard Preview
 
-![Streaming & Behavioral Insights](images/1_Streaming & Behavioral Insights.png)
+![Streaming & Behavioral Insights](images/1_Streaming_Behavioral_Insights.png)
 ![Taste Map](images/2_Taste_Map.png)
 
 ---
