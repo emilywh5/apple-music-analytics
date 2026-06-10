@@ -20,7 +20,7 @@ To extract deeper insights, this project implements a data pipeline across a mul
 
 The ingestion layer normalizes flat file inputs into a clean, 3rd Normal Form (3NF) relational framework inside PostgreSQL to eliminate duplicate records and enforce absolute data integrity.
 
-![Schema Diagram](schema/schema_diagram_final.png)
+![Schema Diagram](schema/schema_diagram.png)
 
 ---
 
@@ -111,8 +111,8 @@ HAVING COUNT(*) > 30;
 
 ## Dashboard Preview
 
-![Streaming & Behavioral Insights](images/1_ Streaming & Behavioral Insights.png)
-![Taste Map](images/2_ Taste_Map.png)
+![Streaming & Behavioral Insights](images/1_Streaming & Behavioral Insights.png)
+![Taste Map](images/2_Taste_Map.png)
 
 ---
 
