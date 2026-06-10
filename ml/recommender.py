@@ -48,9 +48,17 @@ def label_cluster(df, cluster_id):
         .explode()
         .str.strip()
         .value_counts()
-        .head(2)
+        .head(4)
         .index.tolist()
     )
+
+    generic = ["pop"]
+    subgenres = [g for g in top_genres if g.lower() not in generic]
+    has_generic = any(g.lower() in generic for g in top_genres)
+
+    final_genres = subgenres[:2]
+    if has_generic:
+        final_genres.append("pop")
 
     # Top artists
     top_artists = (
@@ -62,8 +70,8 @@ def label_cluster(df, cluster_id):
     )
 
     parts = []
-    if top_genres:
-        parts.append("/".join(top_genres))
+    if final_genres:
+        parts.append("/".join(final_genres))
 
     if top_artists:
         parts.append(f"({', '.join(top_artists)})")
@@ -79,7 +87,7 @@ def plot_clusters_interactive(df):
     df_plot = df.sort_values(by="cluster")
 
     fig = px.scatter(
-        df,
+        df_plot,
         x="umap_x",
         y="umap_y",
         color="cluster_label",
@@ -299,7 +307,11 @@ recs = get_recommendations(df, sample_track_id, top_n=5, method='feature')
 # Final Plot
 
 # Option 1: See entire interactive map
-# plot_clusters_interactive(df)
+plot_clusters_interactive(df)
 
 # Option 2: See recommendations for a random track
-recommend_and_visualize_random(df, top_n=10, method='feature')
+# recommend_and_visualize_random(df, top_n=10, method='feature')
+
+# Export the enriched data for Tableau
+df.to_csv("apple_music_taste_clusters.csv", index=False)
+print("Data exported successfully for Tableau")

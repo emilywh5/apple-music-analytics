@@ -63,11 +63,11 @@ create view track_features_clean as
 with base as (
 	select 
 		track_id,
-		ln(1 + total_plays::double precision) as log_total_plays,
-		ln(1 + total_skips::double precision) as log_total_skips,
-		ln(1 + days_played::double precision) as log_days_played,
-		ln(1 + (extract(epoch from listening_period) / 86400.0)) as log_listening_period,
-		ln(1 + skip_adjusted_popularity::double precision) as log_skip_adj_pop,
+		ln(1 + greatest(total_plays::double precision, 0)) as log_total_plays,
+		ln(1 + greatest(total_skips::double precision, 0)) as log_total_skips,
+		ln(1 + greatest(days_played::double precision, 0)) as log_days_played,
+		ln(1 + greatest((extract(epoch from listening_period) / 86400.0), 0)) as log_listening_period,
+		ln(1 + greatest(skip_adjusted_popularity::double precision, 0)) as log_skip_adj_pop,
 		session_intensity,
 		recency_score,
 		loyalty_index,
@@ -85,6 +85,7 @@ with base as (
 		pattern_occasional,
 		pattern_rare
 	from track_features_engineered
+	where total_plays >= 2
 ),
 stats as (
 	select 
